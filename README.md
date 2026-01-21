@@ -1,41 +1,62 @@
-# Hangman Project — Python + Web
+# 🎮 Hangman Project — Python + Web Version
 
 A two-part evolution of the classic Hangman game:
 ✔ Python (Tkinter Desktop)
 ✔ Web Version (JavaScript + Canvas)
 
-### 🎯 Purpose
-Built initially as a desktop game using Python, later expanded into a web playable version to make it accessible, interactive, and portfolio-ready.
+---
+
+### 🌐 Live Demo (Web Version)
+🔗 https://hangman-game-topaz-two.vercel.app/
+
+---
+
+## 🎯 Purpose
+Started as a desktop game using Python & Tkinter, and later expanded into a browser-playable version to improve accessibility, interactivity, and deployment experience. This dual-version structure demonstrates product thinking, iteration, and adaptability across platforms.
 
 ---
 
 ## 📂 Project Sections
 
-### 🐍 1. Python Version (Core Logic + GUI)
-Path: `python-version/`
-Tech: Python, Tkinter
+### 🐍 1. Python Version (Desktop — Tkinter)
+📁 Path: `/python-version/`  
+🔧 Tech: Python, Tkinter  
+🎮 Interaction: GUI, Buttons, Labels  
 
-### 🌐 2. Web Version (Play Online)
-Path: `web-version/`
-Tech: HTML, CSS, JS, Canvas
-
-Live Demo (Web): <deploy_link_here>
-GitHub Repo: <repo_link_here>
+### 🌐 2. Web Version (Browser — JavaScript + Canvas)
+📁 Path: `/web-version/`  
+🔧 Tech: HTML, CSS, JS, Canvas  
+✨ Features: Hint system, Category labels, Bubble keyboard, Animations  
+🔗 Live Demo: https://hangman-game-topaz-two.vercel.app/
 
 ---
 
 ## 🧩 Why Two Versions?
 
-- First version: focus on **logic + GUI + Python**
-- Second version: focus on **UX, deployment & accessibility**
+- **Python Version:** Focused on core logic and GUI fundamentals
+- **Web Version:** Focused on UX, deployment, accessibility, and UI enhancements
 
-This transformation demonstrates:
-✔ product thinking  
-✔ engineering adaptability  
-✔ frontend + backend exposure  
-✔ iterative improvement  
+This evolution demonstrates:
+✔ Product thinking  
+✔ Engineering adaptability  
+✔ Frontend + GUI programming  
+✔ Deployment skills  
+✔ Iterative improvement  
 
 ---
 
-## 🧑‍💻 Author
-Abdul Samad
+## 🧠 Tech Stack
+
+| Version | Technologies |
+|--------|--------------|
+| Python | Python, Tkinter, Random |
+| Web | HTML, CSS, JavaScript, Canvas API |
+| Deployment | Vercel |
+| Packaging (Optional) | PyInstaller |
+
+---
+
+## 🧑‍💻 Local Usage (Web Version)
+
+No setup required:
+
