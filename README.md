@@ -67,7 +67,7 @@ open index.html
 cd python-version
 pip install -r requirements.txt
 python hangman.py
-
+```
 ---
 
 ## 🧪 Features
@@ -88,11 +88,6 @@ Hosted on **Vercel (Free Tier)**
 Deployment configuration:
 
 
-
-Root: web-version/src
-Framework: None
-
-
 ---
 
 ## 🧑‍💼 Author
@@ -102,5 +97,6 @@ Abdul Samad
 
 ## ⭐ Interested Viewers
 If you like this project, drop a ⭐ to support!
-ellaborate me where i put this
+
+
 
