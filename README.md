@@ -58,5 +58,14 @@ This evolution demonstrates:
 
 ## 🧑‍💻 Local Usage (Web Version)
 
-No setup required:
+No dependencies required. Just open:
+
+```bash
+cd web-version/src
+open index.html
+
+cd python-version
+pip install -r requirements.txt
+python hangman.py
+
 
