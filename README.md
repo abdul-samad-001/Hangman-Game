@@ -1,27 +1,3 @@
-hangman-project/
- ├── python-version/
- │   ├── hangman.py
- │   ├── requirements.txt
- │   ├── README.md
- │   ├── screenshots/
- │   └── build/ (optional exe later)
- │
- ├── web-version/
- │   ├── src/
- │   │   ├── index.html
- │   │   ├── style.css
- │   │   ├── game.js
- │   │   ├── words.js
- │   │   └── favicon.png
- │   ├── assets/
- │   ├── README.md
- │   └── vercel-deploy.md
- │
- ├── portfolio.md
- ├── README.md  (main)
- ├── LICENSE (optional but pro)
- └── .gitignore
-
 # Hangman Project — Python + Web
 
 A two-part evolution of the classic Hangman game:
