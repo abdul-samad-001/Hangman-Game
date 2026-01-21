@@ -68,4 +68,39 @@ cd python-version
 pip install -r requirements.txt
 python hangman.py
 
+---
+
+## 🧪 Features
+
+✔ Hint button  
+✔ Category display  
+✔ Bubble keyboard UI  
+✔ Physical keyboard input support  
+✔ Beginner-friendly words  
+✔ Canvas-based hangman drawing  
+✔ Win/Lose screens  
+✔ Responsive layout  
+
+---
+
+## 🌐 Deployment
+Hosted on **Vercel (Free Tier)**  
+Deployment configuration:
+
+
+
+Root: web-version/src
+Framework: None
+
+
+---
+
+## 🧑‍💼 Author
+Abdul Samad
+
+---
+
+## ⭐ Interested Viewers
+If you like this project, drop a ⭐ to support!
+ellaborate me where i put this
 
