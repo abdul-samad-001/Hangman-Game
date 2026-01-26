@@ -1,121 +1,159 @@
 const canvas = document.getElementById("hangmanCanvas");
 const ctx = canvas.getContext("2d");
 
-let hintUsed = false;
+const MAX_ATTEMPTS = 8;
+
 let chosenWord = "";
 let displayWord = [];
-let attempts = 8;
-let guessed = new Set();
+let attempts = MAX_ATTEMPTS;
+let guessedLetters = new Set();
+let currentWord = null;
+let gameOver = false;
 
-let current = null;
+/* ===== WORD PICK ===== */
 function pickWord() {
-    current = words[Math.floor(Math.random()*words.length)];
-    chosenWord = current.word.toLowerCase();
-    displayWord = Array(chosenWord.length).fill("_");
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  chosenWord = currentWord.word.toLowerCase();
+  displayWord = Array(chosenWord.length).fill("_");
 }
 
-
+/* ===== UI UPDATE ===== */
 function updateDisplay() {
-    document.getElementById("wordDisplay").innerText = displayWord.join(" ");
-    document.getElementById("category").innerText = `Category: ${current.category}`;
-    document.getElementById("hint").innerText = `Hint: ${current.hint}`;
-    document.getElementById("attempts").innerText = `Attempts left: ${attempts}`;
+  document.getElementById("wordDisplay").innerText = displayWord.join(" ");
+  document.getElementById("category").innerText = `Category: ${currentWord.category}`;
+
+  document.getElementById("attempts").innerHTML =
+    "Attempts: " + "❤️ ".repeat(attempts);
+
+  if (!document.getElementById("hint").classList.contains("hidden")) {
+    document.getElementById("hint").innerText = `Hint: ${currentWord.hint}`;
+  }
 }
 
+/* ===== DRAW HANGMAN ===== */
 function drawHangman() {
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#222";
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#38bdf8";
 
-    const parts = [
-        () => ctx.moveTo(50,280) || ctx.lineTo(250,280),   // ground
-        () => ctx.moveTo(100,280) || ctx.lineTo(100,50),   // pole
-        () => ctx.lineTo(200,50),                          // top
-        () => ctx.lineTo(200,80),                          // rope
-        () => ctx.moveTo(200,90) || ctx.arc(200,110,20,0,Math.PI*2), // head
-        () => ctx.moveTo(200,130) || ctx.lineTo(200,200),  // body
-        () => ctx.moveTo(200,150) || ctx.lineTo(170,180),  // left arm
-        () => ctx.moveTo(200,150) || ctx.lineTo(230,180),  // right arm
-        () => ctx.moveTo(200,200) || ctx.lineTo(170,240),  // left leg
-        () => ctx.moveTo(200,200) || ctx.lineTo(230,240),  // right leg
-    ];
+  const parts = [
+    () => ctx.moveTo(40, 260) || ctx.lineTo(220, 260),
+    () => ctx.moveTo(80, 260) || ctx.lineTo(80, 40),
+    () => ctx.lineTo(180, 40),
+    () => ctx.lineTo(180, 70),
+    () => ctx.moveTo(180, 90) || ctx.arc(180, 110, 20, 0, Math.PI * 2),
+    () => ctx.moveTo(180, 130) || ctx.lineTo(180, 200),
+    () => ctx.moveTo(180, 150) || ctx.lineTo(150, 180),
+    () => ctx.moveTo(180, 150) || ctx.lineTo(210, 180),
+    () => ctx.moveTo(180, 200) || ctx.lineTo(150, 240),
+    () => ctx.moveTo(180, 200) || ctx.lineTo(210, 240)
+  ];
 
-    let index = 10 - attempts;
-    if (parts[index-1]) {
-        ctx.beginPath();
-        parts[index-1]();
-        ctx.stroke();
-    }
+  const step = MAX_ATTEMPTS - attempts;
+  if (parts[step]) {
+    ctx.beginPath();
+    parts[step]();
+    ctx.stroke();
+  }
 }
 
+/* ===== GUESS HANDLER ===== */
 function handleGuess(letter) {
-    if (guessed.has(letter) || attempts <= 0) return;
-    guessed.add(letter);
+  if (gameOver || guessedLetters.has(letter)) return;
 
-    if (!chosenWord.includes(letter)) {
-        attempts--;
-        drawHangman();
-    } else {
-        for (let i=0; i<chosenWord.length; i++) {
-            if (chosenWord[i] === letter) displayWord[i] = letter;
-        }
+  guessedLetters.add(letter);
+  disableKey(letter);
+
+  if (chosenWord.includes(letter)) {
+    for (let i = 0; i < chosenWord.length; i++) {
+      if (chosenWord[i] === letter) {
+        displayWord[i] = letter;
+      }
     }
+  } else {
+    attempts--;
+    drawHangman();
+    shakeCanvas();
+  }
 
-    updateDisplay();
-    checkEnd();
-    disableKey(letter);
+  updateDisplay();
+  checkGameState();
+}
+
+/* ===== GAME STATE ===== */
+function checkGameState() {
+  if (!displayWord.includes("_")) {
+    document.getElementById("attempts").innerText = "🎉 You Win!";
+    endGame();
+  }
+
+  if (attempts === 0) {
+    document.getElementById("attempts").innerText =
+      `❌ You Lose! Word: ${chosenWord}`;
+    revealWord();
+    endGame();
+  }
+}
+
+function endGame() {
+  gameOver = true;
+}
+
+/* ===== KEYBOARD ===== */
+function createKeyboard() {
+  const keyboard = document.getElementById("keyboard");
+  keyboard.innerHTML = "";
+
+  "qwertyuiopasdfghjklzxcvbnm".split("").forEach(letter => {
+    const btn = document.createElement("button");
+    btn.className = "key";
+    btn.id = `key-${letter}`;
+    btn.innerText = letter;
+    btn.onclick = () => handleGuess(letter);
+    keyboard.appendChild(btn);
+  });
 }
 
 function disableKey(letter) {
-    const btn = document.getElementById(`key-${letter}`);
-    if (btn) btn.classList.add("disabled");
+  const btn = document.getElementById(`key-${letter}`);
+  if (btn) btn.classList.add("disabled");
 }
 
-function checkEnd() {
-    if (!displayWord.includes("_")) {
-        document.getElementById("attempts").innerText = "You Win 🎉";
-    } else if (attempts === 0) {
-        document.getElementById("attempts").innerText = `You Lose ❌ Word: ${chosenWord}`;
-    }
+/* ===== EFFECTS ===== */
+function shakeCanvas() {
+  canvas.classList.add("shake");
+  setTimeout(() => canvas.classList.remove("shake"), 300);
 }
 
-function createKeyboard() {
-    const kb = document.getElementById("keyboard");
-    const letters = "qwertyuiopasdfghjklzxcvbnm".split("");
-
-    kb.innerHTML = "";
-    letters.forEach(l => {
-        const btn = document.createElement("button");
-        btn.className = "key";
-        btn.id = `key-${l}`;
-        btn.innerText = l;
-        btn.onclick = () => handleGuess(l);
-        kb.appendChild(btn);
-    });
+/* ===== REVEAL WORD ===== */
+function revealWord() {
+  displayWord = chosenWord.split("");
+  document.getElementById("wordDisplay").innerText = displayWord.join(" ");
 }
 
-document.addEventListener("keydown", (e)=>{
-    let l = e.key.toLowerCase();
-    if (/[a-z]/.test(l) && l.length===1) handleGuess(l);
+/* ===== EVENTS ===== */
+document.addEventListener("keydown", e => {
+  const letter = e.key.toLowerCase();
+  if (/^[a-z]$/.test(letter)) handleGuess(letter);
 });
 
 document.getElementById("restartBtn").onclick = startGame;
 document.getElementById("hintBtn").onclick = () => {
-    document.getElementById("hint").innerText = `Hint: ${current.hint}`;
-    document.getElementById("hint").classList.remove("hidden");
-    hintUsed = true;
+  document.getElementById("hint").classList.remove("hidden");
+  document.getElementById("hint").innerText = `Hint: ${currentWord.hint}`;
 };
 
-
+/* ===== START GAME ===== */
 function startGame() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    attempts = 8;
-    guessed.clear();
-    hintUsed = false;
-    document.getElementById("hint").classList.add("hidden");
-    pickWord();
-    updateDisplay();
-    createKeyboard();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  attempts = MAX_ATTEMPTS;
+  guessedLetters.clear();
+  gameOver = false;
+
+  document.getElementById("hint").classList.add("hidden");
+
+  pickWord();
+  updateDisplay();
+  createKeyboard();
 }
 
 startGame();
-
