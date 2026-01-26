@@ -29,22 +29,51 @@ function updateDisplay() {
     hintEl.innerText = `Hint: ${currentWordObj.hint}`;
   }
 }
-
 function drawHangman() {
   ctx.lineWidth = 3;
   ctx.strokeStyle = "#38bdf8";
 
   const parts = [
-    () => ctx.moveTo(40, 260) || ctx.lineTo(220, 260),
-    () => ctx.moveTo(80, 260) || ctx.lineTo(80, 40),
-    () => ctx.lineTo(180, 40),
-    () => ctx.lineTo(180, 70),
-    () => ctx.moveTo(180, 90) || ctx.arc(180, 110, 20, 0, Math.PI * 2),
-    () => ctx.moveTo(180, 130) || ctx.lineTo(180, 200),
-    () => ctx.moveTo(180, 150) || ctx.lineTo(150, 180),
-    () => ctx.moveTo(180, 150) || ctx.lineTo(210, 180),
-    () => ctx.moveTo(180, 200) || ctx.lineTo(150, 240),
-    () => ctx.moveTo(180, 200) || ctx.lineTo(210, 240)
+    () => {
+      ctx.moveTo(40, 260);
+      ctx.lineTo(220, 260);
+    },
+    () => {
+      ctx.moveTo(80, 260);
+      ctx.lineTo(80, 40);
+    },
+    () => {
+      ctx.moveTo(80, 40);
+      ctx.lineTo(170, 40);
+    },
+    () => {
+      ctx.moveTo(170, 40);
+      ctx.lineTo(170, 80);
+    },
+    () => {
+      ctx.moveTo(170, 100);
+      ctx.arc(170, 100, 20, 0, Math.PI * 2);
+    },
+    () => {
+      ctx.moveTo(170, 120);
+      ctx.lineTo(170, 190);
+    },
+    () => {
+      ctx.moveTo(170, 140);
+      ctx.lineTo(145, 165);
+    },
+    () => {
+      ctx.moveTo(170, 140);
+      ctx.lineTo(195, 165);
+    },
+    () => {
+      ctx.moveTo(170, 190);
+      ctx.lineTo(150, 235);
+    },
+    () => {
+      ctx.moveTo(170, 190);
+      ctx.lineTo(190, 235);
+    }
   ];
 
   const step = MAX_ATTEMPTS - attempts;
@@ -157,3 +186,4 @@ function startGame() {
 }
 
 startGame();
+
