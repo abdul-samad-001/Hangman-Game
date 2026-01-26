@@ -11,30 +11,23 @@
   <main class="app">
     <section class="game-card">
 
-      <!-- Header -->
       <header class="game-header">
         <h1>Hangman</h1>
-        <p id="category" class="category">Category: </p>
+        <p id="category" class="category"></p>
       </header>
 
-      <!-- Game Visual -->
       <div class="canvas-wrapper">
         <canvas id="hangmanCanvas" width="260" height="260"></canvas>
       </div>
 
-      <!-- Word -->
       <div id="wordDisplay" class="word"></div>
 
-      <!-- Attempts -->
       <div id="attempts" class="attempts"></div>
 
-      <!-- Hint -->
       <div id="hint" class="hint hidden"></div>
 
-      <!-- Keyboard -->
       <div id="keyboard" class="keyboard"></div>
 
-      <!-- Actions -->
       <div class="actions">
         <button id="restartBtn" class="btn primary">Restart</button>
         <button id="hintBtn" class="btn secondary">Hint</button>
@@ -47,4 +40,3 @@
   <script src="game.js"></script>
 </body>
 </html>
-
