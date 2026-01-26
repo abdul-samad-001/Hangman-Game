@@ -80,7 +80,7 @@ function checkEnd() {
 
 function createKeyboard() {
     const kb = document.getElementById("keyboard");
-    const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+    const letters = "qwertyuiopasdfghjklzxcvbnm".split("");
 
     kb.innerHTML = "";
     letters.forEach(l => {
@@ -118,3 +118,4 @@ function startGame() {
 }
 
 startGame();
+
