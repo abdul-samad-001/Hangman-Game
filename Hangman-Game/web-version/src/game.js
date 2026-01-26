@@ -3,34 +3,33 @@ const ctx = canvas.getContext("2d");
 
 const MAX_ATTEMPTS = 8;
 
+let currentWordObj = null;
 let chosenWord = "";
 let displayWord = [];
 let attempts = MAX_ATTEMPTS;
 let guessedLetters = new Set();
-let currentWord = null;
 let gameOver = false;
 
-/* ===== WORD PICK ===== */
 function pickWord() {
-  currentWord = words[Math.floor(Math.random() * words.length)];
-  chosenWord = currentWord.word.toLowerCase();
+  currentWordObj = words[Math.floor(Math.random() * words.length)];
+  chosenWord = currentWordObj.word.toLowerCase();
   displayWord = Array(chosenWord.length).fill("_");
 }
 
-/* ===== UI UPDATE ===== */
 function updateDisplay() {
   document.getElementById("wordDisplay").innerText = displayWord.join(" ");
-  document.getElementById("category").innerText = `Category: ${currentWord.category}`;
+  document.getElementById("category").innerText =
+    `Category: ${currentWordObj.category}`;
 
   document.getElementById("attempts").innerHTML =
     "Attempts: " + "❤️ ".repeat(attempts);
 
-  if (!document.getElementById("hint").classList.contains("hidden")) {
-    document.getElementById("hint").innerText = `Hint: ${currentWord.hint}`;
+  const hintEl = document.getElementById("hint");
+  if (!hintEl.classList.contains("hidden")) {
+    hintEl.innerText = `Hint: ${currentWordObj.hint}`;
   }
 }
 
-/* ===== DRAW HANGMAN ===== */
 function drawHangman() {
   ctx.lineWidth = 3;
   ctx.strokeStyle = "#38bdf8";
@@ -56,7 +55,6 @@ function drawHangman() {
   }
 }
 
-/* ===== GUESS HANDLER ===== */
 function handleGuess(letter) {
   if (gameOver || guessedLetters.has(letter)) return;
 
@@ -64,11 +62,9 @@ function handleGuess(letter) {
   disableKey(letter);
 
   if (chosenWord.includes(letter)) {
-    for (let i = 0; i < chosenWord.length; i++) {
-      if (chosenWord[i] === letter) {
-        displayWord[i] = letter;
-      }
-    }
+    chosenWord.split("").forEach((char, index) => {
+      if (char === letter) displayWord[index] = letter;
+    });
   } else {
     attempts--;
     drawHangman();
@@ -79,37 +75,44 @@ function handleGuess(letter) {
   checkGameState();
 }
 
-/* ===== GAME STATE ===== */
 function checkGameState() {
   if (!displayWord.includes("_")) {
     document.getElementById("attempts").innerText = "🎉 You Win!";
-    endGame();
+    gameOver = true;
   }
 
   if (attempts === 0) {
     document.getElementById("attempts").innerText =
       `❌ You Lose! Word: ${chosenWord}`;
     revealWord();
-    endGame();
+    gameOver = true;
   }
 }
 
-function endGame() {
-  gameOver = true;
-}
-
-/* ===== KEYBOARD ===== */
 function createKeyboard() {
   const keyboard = document.getElementById("keyboard");
   keyboard.innerHTML = "";
 
-  "qwertyuiopasdfghjklzxcvbnm".split("").forEach(letter => {
-    const btn = document.createElement("button");
-    btn.className = "key";
-    btn.id = `key-${letter}`;
-    btn.innerText = letter;
-    btn.onclick = () => handleGuess(letter);
-    keyboard.appendChild(btn);
+  const rows = [
+    ["q","w","e","r","t","y","u","i","o","p"],
+    ["a","s","d","f","g","h","j","k","l"],
+    ["z","x","c","v","b","n","m"]
+  ];
+
+  rows.forEach(row => {
+    const rowDiv = document.createElement("div");
+    rowDiv.className = "keyboard-row";
+
+    row.forEach(letter => {
+      const btn = document.createElement("button");
+      btn.className = "key";
+      btn.id = `key-${letter}`;
+      btn.innerText = letter;
+      btn.onclick = () => handleGuess(letter);
+      rowDiv.appendChild(btn);
+    });
+
+    keyboard.appendChild(rowDiv);
   });
 }
 
@@ -118,31 +121,28 @@ function disableKey(letter) {
   if (btn) btn.classList.add("disabled");
 }
 
-/* ===== EFFECTS ===== */
 function shakeCanvas() {
   canvas.classList.add("shake");
   setTimeout(() => canvas.classList.remove("shake"), 300);
 }
 
-/* ===== REVEAL WORD ===== */
 function revealWord() {
   displayWord = chosenWord.split("");
   document.getElementById("wordDisplay").innerText = displayWord.join(" ");
 }
 
-/* ===== EVENTS ===== */
 document.addEventListener("keydown", e => {
-  const letter = e.key.toLowerCase();
-  if (/^[a-z]$/.test(letter)) handleGuess(letter);
+  const key = e.key.toLowerCase();
+  if (/^[a-z]$/.test(key)) handleGuess(key);
 });
 
 document.getElementById("restartBtn").onclick = startGame;
 document.getElementById("hintBtn").onclick = () => {
-  document.getElementById("hint").classList.remove("hidden");
-  document.getElementById("hint").innerText = `Hint: ${currentWord.hint}`;
+  const hintEl = document.getElementById("hint");
+  hintEl.classList.remove("hidden");
+  hintEl.innerText = `Hint: ${currentWordObj.hint}`;
 };
 
-/* ===== START GAME ===== */
 function startGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   attempts = MAX_ATTEMPTS;
