@@ -53,6 +53,12 @@ function drawHangman() {
     () => {
       ctx.moveTo(170, 100);
       ctx.arc(170, 100, 20, 0, Math.PI * 2);
+
+      ctx.moveTo(163, 95);
+      ctx.arc(163, 95, 2, 0, Math.PI * 2);
+
+      ctx.moveTo(177, 95);
+      ctx.arc(177, 95, 2, 0, Math.PI * 2);
     },
     () => {
       ctx.moveTo(170, 120);
@@ -73,6 +79,10 @@ function drawHangman() {
     () => {
       ctx.moveTo(170, 190);
       ctx.lineTo(190, 235);
+    },
+    () => {
+      ctx.moveTo(170, 190);
+      ctx.lineTo(170, 240);
     }
   ];
 
@@ -83,6 +93,7 @@ function drawHangman() {
     ctx.stroke();
   }
 }
+
 
 function handleGuess(letter) {
   if (gameOver || guessedLetters.has(letter)) return;
@@ -186,4 +197,5 @@ function startGame() {
 }
 
 startGame();
+
 
