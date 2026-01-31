@@ -30,7 +30,7 @@ Started as a desktop game using Python & Tkinter, and later expanded into a brow
 🔗 Live Demo: https://hangman-game-topaz-two.vercel.app/
 
 ---
-## 📂 Folder Structure
+## 📂 Project Structure
 ```
 📁 Hangman-Game
 └── 📁 python-version
