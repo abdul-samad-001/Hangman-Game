@@ -30,6 +30,54 @@ Started as a desktop game using Python & Tkinter, and later expanded into a brow
 🔗 Live Demo: https://hangman-game-topaz-two.vercel.app/
 
 ---
+## 📂 Folder Structure
+
+📁 Hangman-Game
+└── 📁 python-version
+├   ├── 🖼️ A.png
+├   ├── 🖼️ B.png
+├   ├── 🖼️ C.png
+├   ├── 🖼️ D.png
+├   ├── 🖼️ E.png
+├   ├── 🖼️ F.png
+├   ├── 🖼️ G.png
+├   ├── 🖼️ H.png
+├   ├── 🖼️ I.png
+├   ├── 🖼️ J.png
+├   ├── 🖼️ K.png
+├   ├── 🖼️ L.png
+├   ├── 🖼️ M.png
+├   ├── 🖼️ N.png
+├   ├── 🖼️ O.png
+├   ├── 🖼️ P.png
+├   ├── 🖼️ Q.png
+├   ├── 🖼️ R.png
+├   ├── 🖼️ S.png
+├   ├── 🖼️ T.png
+├   ├── 🖼️ U.png
+├   ├── 🖼️ V.png
+├   ├── 🖼️ W.png
+├   ├── 🖼️ X.png
+├   ├── 🖼️ Y.png
+├   ├── 🖼️ Z.png
+├   ├── 🖼️ exit.png
+├   ├── 🖼️ h1.png
+├   ├── 🖼️ h2.png
+├   ├── 🖼️ h3.png
+├   ├── 🖼️ h4.png
+├   ├── 🖼️ h5.png
+├   ├── 🖼️ h6.png
+├   ├── 🖼️ h7.png
+├   ├── 🐍 hangman.py
+├   ├── 📄 words.txt
+├   └── 📘 README.md
+└── web-version/
+    └── src/
+        ├── index.html    # Main HTML file
+        ├── style.css     # Styling and layout
+        ├── game.js       # Core game logic
+        ├── words.js      # Word list for the game
+        └── hangman.png   # Hangman image asset
 
 ## 🧩 Why Two Versions?
 
