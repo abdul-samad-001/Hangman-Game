@@ -31,7 +31,7 @@ Started as a desktop game using Python & Tkinter, and later expanded into a brow
 
 ---
 ## 📂 Folder Structure
-
+```
 📁 Hangman-Game
 └── 📁 python-version
 ├   ├── 🖼️ A.png
@@ -78,7 +78,7 @@ Started as a desktop game using Python & Tkinter, and later expanded into a brow
         ├── game.js       # Core game logic
         ├── words.js      # Word list for the game
         └── hangman.png   # Hangman image asset
-
+```
 ## 🧩 Why Two Versions?
 
 - **Python Version:** Focused on core logic and GUI fundamentals
