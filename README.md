@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#license)
 
 A two-part evolution of the classic Hangman game — first built as a Python desktop application, then re-implemented as a browser-playable web app to explore UX, accessibility, and deployment beyond the desktop.
-
+  
 **🔗 Live Demo (Web Version):** [hangman-game-topaz-two.vercel.app](https://hangman-game-topaz-two.vercel.app/)
 
 ---
